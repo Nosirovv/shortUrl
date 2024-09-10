@@ -1,13 +1,12 @@
 package uz.cristal.shorturl.controller;
 
 import lombok.RequiredArgsConstructor;
+
+import lombok.var;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 import uz.cristal.shorturl.service.ShortUrlService;
 
-import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
