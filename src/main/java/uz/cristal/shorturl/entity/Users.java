@@ -17,10 +17,9 @@ public class Users {
     @GeneratedValue(generator = "UsersIDseq")
     @SequenceGenerator(name = "UsersIDseq",sequenceName = "users_id_seq", allocationSize = 1)
     private Integer id;
-    private String username;
-    private String password;
     private String email;
+    private String password;
     private String role;
-    private boolean isActive=true;
+    private Boolean isActive = true;
 
 }

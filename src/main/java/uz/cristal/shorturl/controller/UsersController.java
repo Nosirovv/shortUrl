@@ -1,7 +1,6 @@
 package uz.cristal.shorturl.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uz.cristal.shorturl.dto.ResponseDto;
 import uz.cristal.shorturl.dto.UsersDto;
@@ -14,29 +13,35 @@ import java.util.List;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UsersController {
-
-
     private final UsersService usersService;
 
     @PostMapping
-    public ResponseDto<UsersDto> addUsers(@RequestBody @Valid UsersDto usersDto){
+    public ResponseDto<UsersDto> addUsers(@RequestBody @Valid UsersDto usersDto) {
         return usersService.addUser(usersDto);
     }
 
+    @GetMapping("/{id}")
+    public ResponseDto<UsersDto> getUserById(@PathVariable Integer id) {
+        return usersService.getUserById(id);
+    }
 
-//    @PatchMapping()
-//    public ResponseDto<UsersDto> updateUsers(@RequestBody @Valid UsersDto usersDto){
-//        return usersService.updateuser(usersDto);
-//    }
-//
-//
-//    @GetMapping("/all-users")
-//    public ResponseDto<List<UsersDto>> getAllActiveUsers(){
-//        return usersService.getAllActiveUsers();
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseDto<UsersDto> getUserById(@RequestParam Integer id){
-//        return usersService.getUserById(id);
-//    }
+
+    @PatchMapping()
+    public ResponseDto<UsersDto> updateUsers(@RequestBody @Valid UsersDto usersDto){
+        return usersService.updateuser(usersDto);
+    }
+
+
+    @GetMapping("/all-users")
+    public ResponseDto<List<UsersDto>> getAllActiveUsers(){
+        return usersService.getAllActiveUsers();
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseDto<UsersDto> deleteUserByID(@PathVariable Integer id){
+        return usersService.deleteUser(id);     
+    }
+
+
 }

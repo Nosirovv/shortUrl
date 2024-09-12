@@ -13,14 +13,12 @@ import javax.validation.constraints.NotNull;
 public class UsersDto {
     private Integer id;
 //    @NotNull
-    private String username;
+    private String email;
 //    @NotNull
     private String password;
 //    @NotNull
-    private String email;
-//    @NotNull
     private String role;
 //    @NotNull
-    private boolean isActive=true;
+    private Boolean isActive=true;
 
 }
