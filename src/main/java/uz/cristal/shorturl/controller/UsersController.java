@@ -1,12 +1,13 @@
 package uz.cristal.shorturl.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import uz.cristal.shorturl.dto.ResponseDto;
 import uz.cristal.shorturl.dto.UsersDto;
 import uz.cristal.shorturl.service.UsersService;
 
-import javax.validation.Valid;
+
 import java.util.List;
 
 @RestController
@@ -16,7 +17,7 @@ public class UsersController {
     private final UsersService usersService;
 
     @PostMapping
-    public ResponseDto<UsersDto> addUsers(@RequestBody @Valid UsersDto usersDto) {
+    public ResponseDto<UsersDto> addUsers(@Valid @RequestBody UsersDto usersDto) {
         return usersService.addUser(usersDto);
     }
 
@@ -27,7 +28,7 @@ public class UsersController {
 
 
     @PatchMapping()
-    public ResponseDto<UsersDto> updateUsers(@RequestBody @Valid UsersDto usersDto){
+    public ResponseDto<UsersDto> updateUsers(@Valid @RequestBody UsersDto usersDto){
         return usersService.updateuser(usersDto);
     }
 

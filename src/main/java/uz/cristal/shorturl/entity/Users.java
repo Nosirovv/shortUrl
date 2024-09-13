@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
@@ -19,7 +20,7 @@ public class Users {
     private Integer id;
     private String email;
     private String password;
-    private String role;
+    private String role="user";
     private Boolean isActive = true;
 
 }
