@@ -2,9 +2,11 @@ package uz.cristal.shorturl.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import uz.cristal.shorturl.entity.Role;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,7 +19,7 @@ public class UsersDto {
     private String email;
     @NotBlank(message = "password is null")
     private String password;
-    private String role="user";
+    private Set<Role> roles;
     private Boolean isActive=true;
 
 }

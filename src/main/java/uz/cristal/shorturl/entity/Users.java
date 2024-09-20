@@ -1,11 +1,12 @@
 package uz.cristal.shorturl.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -20,7 +21,13 @@ public class Users {
     private Integer id;
     private String email;
     private String password;
-    private String role="user";
     private Boolean isActive = true;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
 }

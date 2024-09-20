@@ -83,9 +83,7 @@ public class UsersServiceImpl implements UsersService {
         if (usersDto.getEmail() != null){
             users.setEmail(usersDto.getEmail());
         }
-        if (usersDto.getRole() != null){
-            users.setRole(usersDto.getRole());
-        }
+
 
         try{
             usersRepository.save(users);
@@ -177,4 +175,5 @@ public class UsersServiceImpl implements UsersService {
                     .build();
         }
     }
+
 }

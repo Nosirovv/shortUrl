@@ -17,4 +17,6 @@ public interface UsersService {
     ResponseDto<UsersDto> getUserById(Integer id);
 
     ResponseDto<UsersDto> deleteUser(Integer id);
+
+//    ResponseDto<JWTResponseDto> login(LoginDto loginDto);
 }
