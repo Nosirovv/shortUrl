@@ -26,6 +26,14 @@ public class UsersServiceImpl implements UsersService {
 
         try {
             Users users = usersMapper.toEntity(usersDto);
+            if (usersRepository.findByEmail(usersDto.getEmail()).isPresent()){
+                return ResponseDto.<UsersDto>builder()
+                        .code(2)
+                        .success(false)
+                        .message("users already exsist")
+                        .data(null)
+                        .build();
+            }
             usersRepository.save(users);
 
             return ResponseDto.<UsersDto>builder()
@@ -38,7 +46,7 @@ public class UsersServiceImpl implements UsersService {
            return ResponseDto.<UsersDto>builder()
                     .code(2)
                     .success(false)
-                    .message("Database eror")
+                    .message("Database eror " + e.getMessage())
                     .data(null)
                     .build();
         }
@@ -121,7 +129,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public ResponseDto<UsersDto> getUserById(Integer id) {
         Optional<Users> usersOptional = usersRepository.findById(id);
-        if (usersOptional.isPresent()){
+        if (usersOptional.isPresent() && usersOptional.get().getIsActive()){
             return ResponseDto.<UsersDto>builder()
                     .code(1)
                     .success(true)
