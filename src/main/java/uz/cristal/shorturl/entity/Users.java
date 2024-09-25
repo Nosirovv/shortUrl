@@ -23,5 +23,8 @@ public class Users {
     private String password;
     private Boolean isActive = true;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
 
 }

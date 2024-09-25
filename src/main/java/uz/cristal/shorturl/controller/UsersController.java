@@ -2,6 +2,7 @@ package uz.cristal.shorturl.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.cristal.shorturl.dto.ResponseDto;
 import uz.cristal.shorturl.dto.UsersDto;
@@ -24,6 +25,7 @@ public class UsersController {
 
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseDto<UsersDto> getUserById(@PathVariable Integer id) {
         return usersService.getUserById(id);
     }
