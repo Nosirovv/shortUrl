@@ -35,12 +35,11 @@ public class Securityconfiguration{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/register").permitAll()
-                .requestMatchers("/auth/login").permitAll()
+                .requestMatchers("/auth/**").permitAll()
 //                .antMatchers("/auth/register").permitAll() // Ro'yxatdan o'tish hamma uchun ochiq
 //                .antMatchers("/auth/login").permitAll()
-                .requestMatchers(HttpMethod.GET, "/users/").hasRole("ADMIN")
-                .requestMatchers("/users/**").hasRole("SUPER_ADMIN")
+//                .requestMatchers(HttpMethod.GET, "/users/").hasRole("ADMIN")
+//                .requestMatchers("/users/**").hasRole("SUPER_ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
