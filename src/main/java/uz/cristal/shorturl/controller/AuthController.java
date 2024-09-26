@@ -23,6 +23,8 @@ import uz.cristal.shorturl.repository.UsersRepository;
 import uz.cristal.shorturl.security.JwtUtil;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -63,12 +65,20 @@ public class AuthController {
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, loginRequestDto.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
-//            user = userService.findByUsername(username);
         } catch (AuthenticationException e) {
             return new ResponseEntity(e.getMessage(), BAD_REQUEST);
         }
-        String token = jwtUtil.generateToken(username);
-        return ResponseEntity.ok(new JwtResponseDto(token));
+        String usersRole = usersRepository.findRolesByEmail(loginRequestDto.getEmail());
+        System.out.println(usersRole);
+
+        Optional<Users> users = usersRepository.findByEmail(loginRequestDto.getEmail());
+        if (users.isPresent()){
+            String token = jwtUtil.generateToken(username, usersRole);
+            return ResponseEntity.ok(new JwtResponseDto(token));
+        }else {
+            return ResponseEntity.badRequest().body("User not found");
+        }
+
     }
 
 

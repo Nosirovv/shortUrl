@@ -19,31 +19,34 @@ public class UsersController {
 
 
     @PostMapping
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ResponseDto<UsersDto> addUsers(@Valid @RequestBody UsersDto usersDto) {
         return usersService.addUser(usersDto);
     }
 
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseDto<UsersDto> getUserById(@PathVariable Integer id) {
         return usersService.getUserById(id);
     }
 
 
-
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     @PatchMapping()
     public ResponseDto<UsersDto> updateUsers(@Valid @RequestBody UsersDto usersDto) {
         return usersService.updateuser(usersDto);
     }
 
 
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     @GetMapping("/all-users")
     public ResponseDto<List<UsersDto>> getAllActiveUsers() {
         return usersService.getAllActiveUsers();
     }
 
 
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseDto<UsersDto> deleteUserByID(@PathVariable Integer id) {
         return usersService.deleteUser(id);

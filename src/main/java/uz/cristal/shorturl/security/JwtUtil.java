@@ -1,6 +1,7 @@
 package uz.cristal.shorturl.security;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.annotation.PostConstruct;
@@ -8,23 +9,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import uz.cristal.shorturl.entity.Role;
 
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class JwtUtil {
 
     private String SECRET_KEY = "aldlkjaflAFADFADFlajsdsflaj9848afdlkajlkasdfuj9824585aPalkjadflkj_ljad)90";
 
-    public String generateToken(String username){
-        Map<String, Object> claims = new HashMap<>();
+    public String generateToken(String username, String roles){
+        Claims claims = Jwts.claims().setSubject(username);
+        claims.put("role", roles);
 
         return Jwts.builder()
+                .setSubject(String.format("%s",username))
                 .setClaims(claims)
-                .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() +
                         1000 * 60 * 60 * 10))
