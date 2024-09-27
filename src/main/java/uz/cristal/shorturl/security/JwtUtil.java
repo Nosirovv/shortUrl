@@ -18,9 +18,9 @@ public class JwtUtil {
 
     private String SECRET_KEY = "aldlkjaflAFADFADFlajsdsflaj9848afdlkajlkasdfuj9824585aPalkjadflkj_ljad)90";
 
-    public String generateToken(String username, String roles){
+    public String generateToken(String username, List<String> roles){
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("role", roles);
+        claims.put("roles", roles);
 
         return Jwts.builder()
                 .setSubject(String.format("%s",username))

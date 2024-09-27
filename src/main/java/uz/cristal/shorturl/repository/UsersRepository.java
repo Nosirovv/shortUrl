@@ -18,6 +18,6 @@ public interface UsersRepository extends JpaRepository<Users,Integer> {
             "JOIN users_roles ur ON ur.roles_id = r.id " +
             "JOIN users u ON u.id = ur.users_id " +
             "WHERE u.email = :email", nativeQuery = true)
-    String findRolesByEmail(@Param("email") String email);
+    List<String> findRolesByEmail(@Param("email") String email);
 
 }

@@ -45,7 +45,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Foydalanuvchi bu emaildan ro'yhatdan o'tgan");
         }
 
-        Role userRole = roleRepository.findByName("USER").orElseThrow(() -> new RuntimeException("User not found"));
+        Role userRole = roleRepository.findByName("ROLE_USER").orElseThrow(() -> new RuntimeException("User not found"));
 
         Users users = new Users();
         users.setEmail(registerRequest.getEmail());
@@ -68,7 +68,7 @@ public class AuthController {
         } catch (AuthenticationException e) {
             return new ResponseEntity(e.getMessage(), BAD_REQUEST);
         }
-        String usersRole = usersRepository.findRolesByEmail(loginRequestDto.getEmail());
+        List<String> usersRole = usersRepository.findRolesByEmail(loginRequestDto.getEmail());
         System.out.println(usersRole);
 
         Optional<Users> users = usersRepository.findByEmail(loginRequestDto.getEmail());
