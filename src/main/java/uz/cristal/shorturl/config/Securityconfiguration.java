@@ -1,6 +1,8 @@
 package uz.cristal.shorturl.config;
 
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,13 @@ import uz.cristal.shorturl.security.MyUserDetailsService;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@OpenAPIDefinition(
+        info = @Info(
+                title = "URL Qisqartiruvchi API",
+                version = "1.0",
+                description = "URL qisqartirish va foydalanuvchilarni boshqarish uchun API hujjatlari"
+        )
+)
 public class Securityconfiguration{
 
     @Autowired
@@ -38,6 +47,11 @@ public class Securityconfiguration{
         http.csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers(
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html"
+                ).permitAll()
 //                .requestMatchers("/users/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
